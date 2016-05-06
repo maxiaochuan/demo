@@ -1,0 +1,32 @@
+@import "base/base";
+
+aside {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 200px;
+  background-color: @WGS03;
+  .side-list {
+    height: 100%;
+    span {
+      cursor: pointer;
+      color: @WGS09;
+      font-size: 28px;
+      &:hover {
+        background-color: @WC02;
+      }
+    }
+    ul {
+      list-style: none;
+      font-size: 0;
+      margin: 0;
+      padding: 0;
+      li {
+        cursor: pointer;
+        color: @WGS09;
+        font-size: 20px;
+      }
+    }
+  }
+}
