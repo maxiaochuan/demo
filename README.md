@@ -8,7 +8,7 @@ $ npm install
 $ npm run build
 ```
 
-## configure server
+## configure
 
 ### if nginx
 
@@ -46,5 +46,11 @@ server {
         deny all;
     }
 }
+```
+
+### config env
+
+```
+$ cp .env.default .env
 ```
 
