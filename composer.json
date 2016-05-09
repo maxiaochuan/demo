@@ -1,9 +1,9 @@
 {
-    "name": "root/mxcins",
+    "name": "demo",
     "authors": [
         {
-            "name": "maxc1216",
-            "email": "maxc1216@thundersoft.com"
+            "name": "Xiaochuan Ma",
+            "email": "mxcins@sina.cn"
         }
     ],
     "require": {

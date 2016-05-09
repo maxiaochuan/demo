@@ -7,20 +7,11 @@ module.exports = {
         home: './src/entry/home.js'
     },
     output: {
-        path: "./public/assets/js",
-        publicPath: "./public/assets/js",
         filename: "[name].js"
     },
     module: {
         loaders: [
             {test: /\.vue$/, loader: "vue"}
         ]
-    },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
-    ]
+    }
 };
