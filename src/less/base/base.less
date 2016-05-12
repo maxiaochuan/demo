@@ -1,17 +1,41 @@
 /*color*/
-@WGS01: #000000;
-@WGS02: #212225;
-@WGS03: #2a2b2f;
-@WGS04: #606060;
-@WGS05: #6a6a6a;
-@WGS06: #787878;
-@WGS07: #d5d7dd;
-@WGS08: #edeff3;
-@WGS09: #ffffff;
+@gray-base:              #000;
+@gray-darker:            lighten(@gray-base, 13.5%); // #222
+@gray-dark:              lighten(@gray-base, 20%);   // #333
+@gray:                   lighten(@gray-base, 33.5%); // #555
+@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+
 @WC01: #1c6dea;
 @WC02: #2f7ef8;
 @WC03: #1864da;
 @WC04: #ff3140;
 @WC08: #3b86fa;
 
-@headerBC: #2a2b2f;
+/*font, line-height*/
+
+@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+
+@line-height-base:        1.428571429; // 20/14
+@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+
+/*padding, margin*/
+@padding-base-vertical: 6px;
+@padding-base-horizontal: 12px;
+
+
+
+@input-color:                       @gray;
+@input-height-base:                 (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-padding-base-vertical:       @padding-base-vertical;
+@input-padding-base-horizontal:     @padding-base-horizontal;

@@ -3,13 +3,13 @@
 var Vue = require('vue');
 var vueResource = require('vue-resource');
 var vueValidator = require('vue-validator');
-var loginComponents = require('../components/login.vue');
+var loginCmp = require('../components/login.vue');
 Vue.use(vueResource);
 Vue.use(vueValidator);
 
 new Vue({
-    el: '#wrapper',
+    el: 'body',
     components: {
-        'v-login': loginComponents
+        'mxc-login': loginCmp
     }
 });
