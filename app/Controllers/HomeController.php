@@ -8,10 +8,9 @@
 
 namespace App\Controllers;
 
-use App\Database\User;
 use Core\Lib\BaseController;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class HomeController extends BaseController
 {
@@ -24,7 +23,11 @@ class HomeController extends BaseController
 //        return $this->container->render->render($response, 'a.html', ['params' => $params]);
 //        return $response;
 
-        return $this->container->view->render($response, 'home/home.html');
+//        return $this->container->view->render($response, 'home/home.html');
+
+        print_r(md5('123456'));
+
+        print_r(md5(crypt('123456', 'ac')));
     }
 
     public function login(Request $request, Response $response)

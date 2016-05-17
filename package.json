@@ -33,7 +33,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --inline --hot --quiet --config src/conf/webpack.dev.config.js",
-    "build": "gulp build --config src/conf/webpack.prod.config.js"
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",

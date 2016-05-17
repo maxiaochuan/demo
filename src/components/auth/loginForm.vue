@@ -1,5 +1,5 @@
 <style>
-    @import "../../less/form.less";
+    /*@import "../../less/form.less";*/
 </style>
 <template>
     <div id="loginForm">

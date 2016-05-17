@@ -2,27 +2,25 @@
 
 namespace App\Providers;
 
-use App\Lib\Validator;
+use Core\Lib\Validator\Validator;
 
 class ValidatorProvider
 {
-    protected static function LoginRules()
+    public static function LoginRules()
     {
         return $rules = [
             'username' => [
                 'required',
-                'lengthMin' => 6,
-                'lengthMax' => 30
+                'lengthBetween' => [6, 30]
             ],
             'password' => [
                 'required',
-                'lengthMin' => 6,
-                'lengthMax' => 64
+                'lengthBetween' => [6, 64]
             ]
         ];
     }
 
-    protected static function registerRules()
+    public static function registerRules()
     {
         return $rules = [
             'username' => [
@@ -43,8 +41,9 @@ class ValidatorProvider
         ];
     }
 
-    public static function validate(string $data, string $rule)
+    public static function validate(array $data, string $rule)
     {
+
         $v = new Validator($data, self::$rule());
 
         if ($v->validate()) {
@@ -59,10 +58,10 @@ class ValidatorProvider
         }
     }
 
-    public function __call($name, $arguments)
+    public static function __callStatic($name, $arguments)
     {
         $className = $name . 'Rules';
 
-        return call_user_func($className);
+        return self::$className();
     }
 }

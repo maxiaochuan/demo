@@ -12,6 +12,8 @@ class AuthController extends BaseController
     public function login(Request $request, Response $response)
     {
         $data = $request->getBody();
+
+        $data = json_decode($data);
         //格式验证
         $result = ValidatorProvider::validate($data, 'login');
 

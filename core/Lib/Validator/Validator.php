@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Lib;
+namespace Core\Lib\Validator;
 
-use App\Lib\Interfaces\ValidatorInterface;
+
+use Core\Lib\Validator\Interfaces\ValidatorInterface;
 
 class Validator implements ValidatorInterface
 {
@@ -36,13 +37,13 @@ class Validator implements ValidatorInterface
             foreach ($rules as $rule => $param) {
                 if (is_numeric($rule)) {
                     $rule = $param;
+                    $param = null;
                 }
                 $validation = [
                     'field' => $field,
                     'value' => $this->_fields[$field],
                     'rule' => $rule,
-                    'param' => $param,
-                    'error' => 'ha ha'
+                    'param' => $param
                 ];
 
                 array_push($this->_validations, $validation);
@@ -63,7 +64,8 @@ class Validator implements ValidatorInterface
             $func = $validation['rule'];
             $result = $this->$func($validation['value'], $validation['param']);
             if ($result === false) {
-                array_push($this->_errors, [$validation['field'], $validation['error']]);
+                $error = ValidatorError::getError($validation['field'], $validation['rule'], $validation['param']);
+                array_push($this->_errors, [$validation['field'], $error]);
             }
         }
 
@@ -117,5 +119,12 @@ class Validator implements ValidatorInterface
         $length = $this->stringLength($value);
 
         return ($length !== false) && $length <= $param;
+    }
+
+    protected function validateLengthBetween($value, $param)
+    {
+        $length = $this->stringLength($value);
+
+        return ($length !== false) && $length >= $param[0] && $length <= $param[1];
     }
 }
