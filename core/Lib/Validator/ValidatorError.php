@@ -20,7 +20,6 @@ class ValidatorError implements ValidatorErrorInterface
 
         $error = ucfirst($files) . ' ' . self::$errors[$rule];
 
-        var_dump($error);
         if (!is_null($param)) {
             foreach ($param as $k => $value) {
                 $pattern = '/\*' . $k . '\*/';

@@ -11,11 +11,9 @@ class ValidatorProvider
         return $rules = [
             'username' => [
                 'required',
-                'lengthBetween' => [6, 30]
             ],
             'password' => [
                 'required',
-                'lengthBetween' => [6, 64]
             ]
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 
-require BASE_PATH . '/vendor/autoload.php';
+require  '../vendor/autoload.php';
 
 $dotEnv = new \Dotenv\Dotenv(BASE_PATH);
 
@@ -11,10 +11,10 @@ $dotEnv->load();
 
 $app = new \Slim\App(\Core\Lib\Config::get('core'));
 
-require_once APP_PATH . '/dependencies.php';
+require_once  BASE_PATH . '/app/dependencies.php';
 
 ob_clean();
 
-require_once APP_PATH . '/routers.php';
+require_once BASE_PATH . '/app/routers.php';
 
 $app->run();

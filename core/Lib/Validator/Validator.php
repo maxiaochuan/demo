@@ -65,7 +65,7 @@ class Validator implements ValidatorInterface
             $result = $this->$func($validation['value'], $validation['param']);
             if ($result === false) {
                 $error = ValidatorError::getError($validation['field'], $validation['rule'], $validation['param']);
-                array_push($this->_errors, [$validation['field'], $error]);
+                array_push($this->_errors, $error);
             }
         }
 
