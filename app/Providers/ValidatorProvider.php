@@ -6,14 +6,19 @@ use Core\Lib\Validator\Validator;
 
 class ValidatorProvider
 {
-    public static function LoginRules()
+    public static function loginRules()
     {
         return $rules = [
             'username' => [
                 'required',
+                'email',
+                'lengthMin' => 6,
+                'lengthMax' => 64,
             ],
             'password' => [
                 'required',
+                'lengthMin' => 6,
+                'lengthMax' => 64,
             ]
         ];
     }
@@ -23,17 +28,13 @@ class ValidatorProvider
         return $rules = [
             'username' => [
                 'required',
+                'email',
                 'lengthMin' => 6,
-                'lengthMax' => 30,
+                'lengthMax' => 64,
             ],
             'password' => [
                 'required',
                 'lengthMin' => 6,
-                'lengthMax' => 64,
-            ],
-            'email' => [
-                'required',
-                'email',
                 'lengthMax' => 64,
             ]
         ];

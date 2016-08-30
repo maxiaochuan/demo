@@ -64,6 +64,7 @@ class Validator implements ValidatorInterface
             $func = $validation['rule'];
             $result = $this->$func($validation['value'], $validation['param']);
             if ($result === false) {
+                gettype($validation['param']) !== 'array' && $validation['param'] = [$validation['param']];
                 $error = ValidatorError::getError($validation['field'], $validation['rule'], $validation['param']);
                 array_push($this->_errors, $error);
             }
@@ -126,5 +127,10 @@ class Validator implements ValidatorInterface
         $length = $this->stringLength($value);
 
         return ($length !== false) && $length >= $param[0] && $length <= $param[1];
+    }
+
+    protected function validateEmail($value)
+    {
+        return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 }

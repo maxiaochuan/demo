@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Model\User;
 use App\Providers\AuthProvider as Auth;
 use App\Providers\ValidatorProvider as Validator;
 use Core\Lib\BaseController;
@@ -15,6 +16,7 @@ class AuthController extends BaseController
     public function login(Request $request, Response $response)
     {
         $data = $request->getBody();
+
         $data = json_decode($data, true);
 
         $userInfo = [
@@ -43,14 +45,24 @@ class AuthController extends BaseController
         return $response->getBody()->write(json_encode($authResult));
     }
 
-//    public function register(Request $request, Response $response)
-//    {
-//        $data = $request->getBody();
-//
-//        $result = ValidatorProvider::validate($data, 'register');
-//
-//        if ($result['result']) {
-//            return $request->getBody()->write($data);
-//        }
-//    }
+    public function register(Request $request, Response $response)
+    {
+        $data = $request->getBody();
+
+        $data = json_decode($data, true);
+
+        $result = Validator::validate($data, 'register');
+
+        $password = password_hash($data['password'] . $_ENV['PASSWORD_SALT'], PASSWORD_DEFAULT);
+        if ($result['result']) {
+            User::getInstance()->registerUser(
+                $data['username'], $password, $data['username'], $data['role'],
+                $data['country'], $data['city'], $data['realname']);
+            return $response->getBody()->write(json_encode([
+                'result' => true
+            ]));
+        }
+
+        return $response->getBody()->write(json_encode($result));
+    }
 }

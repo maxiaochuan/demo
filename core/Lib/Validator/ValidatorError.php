@@ -9,7 +9,8 @@ class ValidatorError implements ValidatorErrorInterface
     protected static $errors = [
         'required' => 'can not be empty',
         'lengthMin' => '',
-        'lengthBetween' =>  'should contain *0* - *1* characters.'
+        'lengthBetween' =>  'should contain *0* - *1* characters.',
+        'email' => 'must be email'
     ];
 
     public static function getError(string $files, string $rule, array $param = null)

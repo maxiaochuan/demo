@@ -22,7 +22,9 @@ class AuthProvider
                 ]
             ];
         }
-        if (!password_verify($userInfo['password'], $hashPassword)) {
+
+        $password = $userInfo['password'] . $_ENV['PASSWORD_SALT'];
+        if (!password_verify($password, $hashPassword)) {
             return [
                 'result' => false,
                 'errors' => [
