@@ -32,4 +32,10 @@ class Model extends Singleton
     {
         return self::$masterDb;
     }
+
+    public static function getTableName()
+    {
+        $arr = explode('\\', get_called_class());
+        return strtolower($arr[count($arr) - 1]);
+    }
 }

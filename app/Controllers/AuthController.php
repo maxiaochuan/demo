@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Model\User;
 use App\Providers\AuthProvider as Auth;
 use App\Providers\ValidatorProvider as Validator;
+use App\Service\UserService;
 use Core\Lib\BaseController;
 use Core\Lib\Session;
 use Core\Lib\Token;
@@ -53,16 +53,17 @@ class AuthController extends BaseController
 
         $result = Validator::validate($data, 'register');
 
-        $password = password_hash($data['password'] . $_ENV['PASSWORD_SALT'], PASSWORD_DEFAULT);
-        if ($result['result']) {
-            User::getInstance()->registerUser(
-                $data['username'], $password, $data['username'], $data['role'],
-                $data['country'], $data['city'], $data['realname']);
-            return $response->getBody()->write(json_encode([
-                'result' => true
-            ]));
+        if (!$result['result']) {
+            return $response->getBody()->write(json_encode($result));
         }
 
-        return $response->getBody()->write(json_encode($result));
+        $authResult = Auth::checkRegister($data['username']);
+
+        if ($authResult['result']) {
+            UserService::getInstance()->registerUser($data);
+            return $response->getBody()->write(json_encode($authResult));
+        }
+
+        return $response->getBody()->write(json_encode($authResult));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Model\User;
+use App\Service\UserService;
 
 class AuthProvider
 {
@@ -35,6 +36,22 @@ class AuthProvider
 
         return [
             'result' => true,
+        ];
+    }
+
+    public static function checkRegister(string $username)
+    {
+        if (UserService::getInstance()->checkUserExist($username)) {
+            return [
+                'result' => false,
+                'errors' => [
+                    'User is exist!',
+                ]
+            ];
+        }
+
+        return [
+            'result' => true
         ];
     }
 }

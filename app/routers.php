@@ -1,16 +1,25 @@
 <?php
 
-//$app->get('/[{params:.*}]', function ($req, $res, $args) {
-//    $params = explode('/', $req->getAttribute('params'));
-//    var_dump($params);
-//});
+$app->group('/api', function () {
 
-$app->get('/home[/{params:.*}]', 'App\Controllers\HomeController:home');
+    $this->get('/home[/{params:.*}]', 'App\Controllers\HomeController:home')->setName('page');
 
-$app->get('/login[/{params:.*}]', 'App\Controllers\HomeController:login')->setName('login');
+    $this->get('/login[/{params:.*}]', 'App\Controllers\HomeController:login')->setName('login');
 
-$app->get('/register', 'App\Controllers\HomeController:register')->setName('register');
+    $this->get('/register', 'App\Controllers\HomeController:register')->setName('register');
 
-$app->post('/login[/{params:.*}]', 'App\Controllers\AuthController:login');
+    $this->post('/login[/{params:.*}]', 'App\Controllers\AuthController:login');
 
-$app->post('/register[/{params:.*}]', 'App\Controllers\AuthController:register');
+    $this->post('/register[/{params:.*}]', 'App\Controllers\AuthController:register');
+
+    $this->get('/local[/{params:.*}]', 'App\Controllers\LocalController:local');
+
+})->add($index);
+
+$app->get('/', function ($request, $response) {
+    $this->view->render($response, 'index.html');
+});
+
+$app->get('/test', function () {
+
+});

@@ -2,23 +2,31 @@
 
 namespace App\Model;
 
+use App\Model\Interfaces\UserInterface;
 use Core\Lib\Model;
 
-class User extends Model
+class User extends Model implements UserInterface
 {
-    const USER_NAME = 'user_name';
+    const USER_NAME = 'username';
 
-    const USER_PASSWORD = 'user_password';
+    const USER_PASSWORD = 'password';
 
-    const USER_EMAIL = 'user_email';
+    /**
+     * 暂用用户名字段
+     */
+    const USER_EMAIL = 'email';
 
-    const USER_ROLE = 'user_role';
+    const USER_ROLE = 'role';
 
-    const USER_COUNTRY = 'user_country';
+    const USER_COUNTRY = 'country';
 
-    const USER_CITY = 'user_city';
+    const USER_CITY = 'city';
 
-    const USER_REAL_NAME = 'user_real_name';
+    const USER_REAL_NAME = 'realname';
+
+    const USER_ICON = 'icon';
+
+    const ROLE_LOCAL = 0;
 
     /**
      * @return User
@@ -28,23 +36,18 @@ class User extends Model
         return parent::getInstance();
     }
 
-    public static function getTableName()
-    {
-        return 'user';
-    }
-
-    /**
-     * @param string $id
-     * @return array|bool
-     */
-    public function getUserById(string $id)
-    {
-        $result = $this->getMasterDB()->get(self::getTableName(), '*', [
-            'id' => $id
-        ]);
-
-        return $result;
-    }
+//    /**
+//     * @param string $id
+//     * @return array|bool
+//     */
+//    public function getUserById(string $id)
+//    {
+//        $result = $this->getMasterDB()->get(self::getTableName(), '*', [
+//            'id' => $id
+//        ]);
+//
+//        return $result;
+//    }
 
     public function getPasswordByName(string $username)
     {
@@ -55,8 +58,8 @@ class User extends Model
         return $result;
     }
 
-    public function registerUser(string $username, string $password,
-                                 string $email, int $role, string $country, string $city, string $realName)
+    public function setUser(string $username, string $password, string $email, int $role,
+                            string $country, string $city, string $realName, string $icon)
     {
         $result = $this->getMasterDB()->insert(self::getTableName(), [
             self::USER_NAME => $username,
@@ -66,12 +69,33 @@ class User extends Model
             self::USER_COUNTRY => $country,
             self::USER_CITY => $city,
             self::USER_REAL_NAME => $realName,
+            self::USER_ICON => $icon,
             '#create_time' => "NOW()",
             '#update_time' => "NOW()",
         ]);
 
-//        var_dump($result);
-//        var_dump($this->getMasterDB()->error());
+        return $result;
+    }
+
+    public function getCountByName(string $username)
+    {
+        $result = $this->getMasterDB()->count(self::getTableName(), [
+            self::USER_NAME => $username
+        ]);
+
+        return $result;
+    }
+
+    public function getLocal()
+    {
+        $result = $this->getMasterDB()->select(self::getTableName(), [
+            self::USER_REAL_NAME,
+            self::USER_CITY,
+            self::USER_COUNTRY,
+            self::USER_ICON
+        ], [
+            self::USER_ROLE => self::ROLE_LOCAL
+        ]);
 
         return $result;
     }
