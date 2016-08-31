@@ -5,13 +5,26 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 $index = function (Request $request, Response $response, $next) {
 
-    $contentType = $request->getHeader('CONTENT_TYPE')[0];
+    $params = $request->getServerParams();
 
-    if (preg_match('/application\/json/', $contentType) === 0) {
-        $this->view->render($response, 'index.html');
-    } else {
+    if (array_key_exists('HTTP_X_REQUESTED_WITH', $params)
+        && 'XMLHttpRequest' === $params['HTTP_X_REQUESTED_WITH']
+    ) {
         $response = $next($request, $response);
+    } else {
+        $this->view->render($response, 'index.html');
     }
 
     return $response;
 };
+
+//$getId = function (Request $request, Response $response, $next) {
+//    $params = explode('/', $request->getAttribute('params'));
+//
+////    var_dump($request->getAttribute('params'));
+////    var_dump($request->getQueryParams());
+//
+//    $response = $next($request, $response);
+//
+//    return $response;
+//};

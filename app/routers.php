@@ -1,12 +1,7 @@
 <?php
 
 $app->group('/api', function () {
-
-    $this->get('/home[/{params:.*}]', 'App\Controllers\HomeController:home')->setName('page');
-
-    $this->get('/login[/{params:.*}]', 'App\Controllers\HomeController:login')->setName('login');
-
-    $this->get('/register', 'App\Controllers\HomeController:register')->setName('register');
+    $this->post('/logout[/{params:.*}]', 'App\Controllers\AuthController:logout');
 
     $this->post('/login[/{params:.*}]', 'App\Controllers\AuthController:login');
 
@@ -14,12 +9,19 @@ $app->group('/api', function () {
 
     $this->get('/local[/{params:.*}]', 'App\Controllers\LocalController:local');
 
+    $this->get('/city[/{params:.*}]', 'App\Controllers\CityController:cities');
+
+    $this->get('/message[/{params:.*}]', 'App\Controllers\MessageController:getPersonalMsg');
+
+    $this->post('/newMessage[/{params:.*}]', 'App\Controllers\MessageController:sendMsg');
+
 })->add($index);
+
 
 $app->get('/', function ($request, $response) {
     $this->view->render($response, 'index.html');
 });
 
 $app->get('/test', function () {
-
+    var_dump($_SESSION);
 });

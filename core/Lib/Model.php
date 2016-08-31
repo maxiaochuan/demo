@@ -5,6 +5,11 @@ namespace Core\Lib;
 
 class Model extends Singleton
 {
+    const ID = 'id';
+
+    const ORDER = 'ORDER';
+
+    const CREATE_TIME = 'create_time';
     /**
      * @var \medoo|null
      */

@@ -39,4 +39,13 @@ class Session
 
         return $default;
     }
+
+    public static function unset()
+    {
+        foreach ($_SESSION as $key => $value) {
+            unset($_SESSION[$key]);
+        }
+
+        session_destroy();
+    }
 }

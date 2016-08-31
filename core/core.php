@@ -1,6 +1,6 @@
 <?php
 
-require  '../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 $dotEnv = new \Dotenv\Dotenv(BASE_PATH);
 
@@ -15,12 +15,16 @@ $settings['notFoundHandler'] = function ($c) {
 
 $app = new \Slim\App($settings);
 
-require_once  BASE_PATH . '/app/dependencies.php';
+require APP_PATH . '/helper.php';
 
-require_once BASE_PATH . '/app/middleware.php';
+require_once APP_PATH . '/dependencies.php';
+
+require_once APP_PATH . '/middleware.php';
 
 ob_clean();
 
-require_once BASE_PATH . '/app/routers.php';
+require_once APP_PATH . '/routers.php';
+
+\Core\Lib\Session::start();
 
 $app->run();

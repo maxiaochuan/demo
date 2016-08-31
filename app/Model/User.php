@@ -26,6 +26,8 @@ class User extends Model implements UserInterface
 
     const USER_ICON = 'icon';
 
+    const USER_TOKEN = 'user_token';
+
     const ROLE_LOCAL = 0;
 
     /**
@@ -95,6 +97,60 @@ class User extends Model implements UserInterface
             self::USER_ICON
         ], [
             self::USER_ROLE => self::ROLE_LOCAL
+        ]);
+
+        return $result;
+    }
+
+    public function getIdByToken(string $token) : int
+    {
+        $result = $this->getMasterDB()->get(self::getTableName(), 'id', [
+            self::USER_TOKEN => $token
+        ]);
+
+        return $result;
+    }
+
+    public function getIdByName(string $username) : int
+    {
+        $result = $this->getMasterDB()->get(self::getTableName(), 'id', [
+            self::USER_NAME => $username
+        ]);
+
+        return $result;
+    }
+
+    public function getInfoByName(string $username)
+    {
+        $result = $this->getMasterDB()->get(self::getTableName(), [
+            self::ID,
+            self::USER_REAL_NAME
+        ], [
+            self::USER_NAME => $username
+        ]);
+//        $result[self::ID] = intval($result[self::ID]);
+
+        return $result;
+    }
+
+    public function getInfoByToken(string $token)
+    {
+        $result = $this->getMasterDB()->get(self::getTableName(), [
+            self::ID,
+            self::USER_REAL_NAME
+        ], [
+            self::USER_TOKEN => $token
+        ]);
+
+        return $result;
+    }
+
+    public function setTokenByName(string $username, string $token)
+    {
+        $result = $this->getMasterDB()->update(self::getTableName(), [
+            self::USER_TOKEN => $token
+        ], [
+            self::USER_NAME => $username
         ]);
 
         return $result;
