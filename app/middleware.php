@@ -10,6 +10,7 @@ $index = function (Request $request, Response $response, $next) {
     if (array_key_exists('HTTP_X_REQUESTED_WITH', $params)
         && 'XMLHttpRequest' === $params['HTTP_X_REQUESTED_WITH']
     ) {
+        $response = $response->withHeader('Access-Control-Allow-Origin', '*');
         $response = $next($request, $response);
     } else {
         $this->view->render($response, 'index.html');
