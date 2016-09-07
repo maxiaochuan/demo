@@ -4,17 +4,11 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 $index = function (Request $request, Response $response, $next) {
+    $newResponse = $response->withHeader('Access-Control-Allow-Origin', '*');
+    $newResponse = $newResponse->withHeader('Access-Control-Allow-Methods', 'GET,POST');
+    $newResponse = $newResponse->withHeader('Access-Control-Allow-Headers', 'http-x-requested-with,content-type');
 
-    $params = $request->getServerParams();
-
-    if (array_key_exists('HTTP_X_REQUESTED_WITH', $params)
-        && 'XMLHttpRequest' === $params['HTTP_X_REQUESTED_WITH']
-    ) {
-        $response = $response->withHeader('Access-Control-Allow-Origin', '*');
-        $response = $next($request, $response);
-    } else {
-        $this->view->render($response, 'index.html');
-    }
+    $response = $next($request, $newResponse);
 
     return $response;
 };

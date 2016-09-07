@@ -15,7 +15,6 @@ class CityController extends BaseController
     {
         $data = CityService::getInstance()->getList();
 
-        $response->withHeader('Access-Control-Allow-Origin', '*');
         $response->getBody()->write(json_encode($data));
     }
 }
