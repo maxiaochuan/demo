@@ -18,6 +18,8 @@ class Title extends Model implements TitleInterface
 
     const TITLE_ICON = 'icon';
 
+    const TITLE_TITLE = 'title';
+
     /**
      * @return Title
      */
@@ -29,6 +31,7 @@ class Title extends Model implements TitleInterface
     public function getTitlesByType(int $type)
     {
         $result = $this->getMasterDB()->select(self::getTableName(), [
+            self::TITLE_TITLE,
             self::TITLE_CONTENT_EN,
             self::TITLE_CONTENT_ZH,
             self::TITLE_ICON
