@@ -4,5 +4,5 @@ namespace App\Model\Interfaces;
 
 interface TitleInterface
 {
-    public function getTitleByType(int $type);
+    public function getTitlesByType(int $type);
 }

@@ -2,18 +2,26 @@
 
 namespace App\Service;
 
+use App\Model\Title;
 use App\Model\User;
 use App\Service\Interfaces\UserServiceInterface;
 use Core\Lib\Singleton;
 
 class UserService extends Singleton implements UserServiceInterface
 {
+    const USER_TITLE_TYPE = 2;
+
+    protected $_title = null;
+
     protected $_user = null;
 
     public function __construct()
     {
         if ($this->_user === null) {
             $this->_user = User::getInstance();
+        }
+        if ($this->_title === null) {
+            $this->_title = Title::getInstance();
         }
     }
 
@@ -53,11 +61,22 @@ class UserService extends Singleton implements UserServiceInterface
 
     public function getLocal()
     {
-        $result = $this->_user->getLocal();
-        foreach ($result as $index => $value) {
-            $result[$index]['img-src'] = imgSrc($value[User::USER_ICON]);
+        $users = $this->_user->getLocal();
+        $titles = $this->_title->getTitlesByType(self::USER_TITLE_TYPE);
+
+        foreach ($users as $index => $user) {
+            $users[$index]['img-src'] = imgSrc($user[User::USER_ICON]);
         }
 
+        foreach ($titles as $index => $title) {
+            $titles[$index]['img-src'] = imgSrc($title[Title::TITLE_ICON]);
+        }
+
+
+        $result = [
+            'title' => $titles,
+            'list' => $users
+        ];
         return json_encode($result);
     }
 

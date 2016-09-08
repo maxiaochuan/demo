@@ -35,16 +35,18 @@ class CityService extends Singleton implements CityServiceInterface
     public function getList()
     {
         $cities = $this->_city->getAllCity();
-        $title = $this->_title->getTitleByType(self::CITY_TITLE_TYPE);
+        $titles = $this->_title->getTitlesByType(self::CITY_TITLE_TYPE);
 
         foreach ($cities as $index => $city) {
             $cities[$index]['img-src'] = imgSrc($city[City::CITY_ICON]);
         }
 
-        $title['img-src'] = imgSrc($title[Title::TITLE_ICON]);
+        foreach ($titles as $index => $title) {
+            $titles[$index]['img-src'] = imgSrc($title[Title::TITLE_ICON]);
+        }
 
         $result = [
-            'title' => $title,
+            'title' => $titles,
             'list' => $cities
         ];
 

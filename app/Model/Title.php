@@ -26,9 +26,9 @@ class Title extends Model implements TitleInterface
         return parent::getInstance();
     }
 
-    public function getTitleByType(int $type)
+    public function getTitlesByType(int $type)
     {
-        $result = $this->getMasterDB()->get(self::getTableName(), [
+        $result = $this->getMasterDB()->select(self::getTableName(), [
             self::TITLE_CONTENT_EN,
             self::TITLE_CONTENT_ZH,
             self::TITLE_ICON
