@@ -4,10 +4,14 @@ namespace App\Service;
 
 use App\Model\Friend;
 use App\Model\Interfaces\FriendInterface;
+use App\Model\Title;
 use Core\Lib\Singleton;
 
 class FriendService extends Singleton implements FriendInterface
 {
+
+    const FRIEND_TITLE_TYPE = 3;
+
     /**
      * @return FriendService
      */
@@ -18,6 +22,7 @@ class FriendService extends Singleton implements FriendInterface
 
     public function getIdListByUserId(int $userId) : array
     {
+
         $result = Friend::getInstance()->getIdListByUserId($userId);
         $result = strlen($result) ? explode(',', $result) : [];
 

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Model\Title;
 use App\Model\User;
 use App\Service\FriendService;
 use Core\Lib\BaseController;
@@ -12,15 +13,19 @@ class FriendController extends BaseController
 {
     public function friends(Request $request, Response $response)
     {
-        $token = explode('/', $request->getAttribute('params'))[0];
+//        $token = explode('/', $request->getAttribute('params'))[0];
+//
+//        $id = User::getInstance()->getIdByToken($token);
+//
+//        $idList = FriendService::getInstance()->getIdListByUserId($id);
 
-        $id = User::getInstance()->getIdByToken($token);
+        $idList = [1, 3, 5, 7, 9, 11];
+        $result['title'] = Title::getInstance()->getTitlesByType(FriendService::FRIEND_TITLE_TYPE);
 
-        $idList = FriendService::getInstance()->getIdListByUserId($id);
+        $list = User::getInstance()->getInfoByIdList($idList);
 
-        $result = User::getInstance()->getInfoByIdList($idList);
+        $result['list'] = $list ? $list : [];
 
-        $result = $result ? $result : [];
 
         $response->getBody()->write(json_encode($result));
     }
