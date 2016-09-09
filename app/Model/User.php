@@ -156,7 +156,7 @@ class User extends Model implements UserInterface
         return $result;
     }
 
-    public function getInfoByIdList(array $idList)
+    public function getInfoByIdList(array $idList): array
     {
         $result = $this->getMasterDB()->select(self::getTableName(), [
             self::USER_REAL_NAME,

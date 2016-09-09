@@ -19,12 +19,10 @@ class FriendController extends BaseController
 //
 //        $idList = FriendService::getInstance()->getIdListByUserId($id);
 
-        $idList = [1, 3, 5, 7, 9, 11];
-        $result['title'] = Title::getInstance()->getTitlesByType(FriendService::FRIEND_TITLE_TYPE);
+//        $idList = [1, 3, 5, 7, 9, 11];
+        $id = 0;
 
-        $list = User::getInstance()->getInfoByIdList($idList);
-
-        $result['list'] = $list ? $list : [];
+        $result = FriendService::getInstance()->getInfoByUserId($id);
 
 
         $response->getBody()->write(json_encode($result));

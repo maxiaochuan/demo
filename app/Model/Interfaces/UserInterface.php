@@ -23,5 +23,5 @@ interface UserInterface
 
     public function setTokenByName(string $username, string $token);
 
-    public function getInfoByIdList(array $idList);
+    public function getInfoByIdList(array $idList) : array;
 }
