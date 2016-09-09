@@ -15,6 +15,8 @@ $app->group('/api', function () {
 
     $this->post('/newMessage[/{params:.*}]', 'App\Controllers\MessageController:sendMsg');
 
+    $this->get('/friend[/{params:.*}]', 'App\Controllers\FriendController:friends');
+
 })->add($index);
 
 

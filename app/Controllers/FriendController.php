@@ -10,12 +10,18 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class FriendController extends BaseController
 {
-    public function list(Request $request, Response $response)
+    public function friends(Request $request, Response $response)
     {
         $token = explode('/', $request->getAttribute('params'))[0];
 
         $id = User::getInstance()->getIdByToken($token);
 
-//        $result = FriendService::
+        $idList = FriendService::getInstance()->getIdListByUserId($id);
+
+        $result = User::getInstance()->getInfoByIdList($idList);
+
+        $result = $result ? $result : [];
+
+        $response->getBody()->write(json_encode($result));
     }
 }

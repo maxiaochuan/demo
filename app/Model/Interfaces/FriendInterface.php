@@ -4,5 +4,5 @@ namespace App\Model\Interfaces;
 
 interface FriendInterface
 {
-    public function getIdListByUserId(int $userId) : array;
+    public function getIdListByUserId(int $userId);
 }
