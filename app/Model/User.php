@@ -96,7 +96,10 @@ class User extends Model implements UserInterface
             self::USER_COUNTRY,
             self::USER_ICON
         ], [
-            self::USER_ROLE => self::ROLE_LOCAL
+            'AND' => [
+                self::USER_ROLE => self::ROLE_LOCAL,
+                self::USER_ICON.'[!]' => 'default.png'
+            ]
         ]);
 
         return $result;

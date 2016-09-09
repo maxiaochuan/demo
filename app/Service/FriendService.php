@@ -3,12 +3,12 @@
 namespace App\Service;
 
 use App\Model\Friend;
-use App\Model\Interfaces\FriendInterface;
 use App\Model\Title;
 use App\Model\User;
+use App\Service\Interfaces\FriendServiceInterface;
 use Core\Lib\Singleton;
 
-class FriendService extends Singleton implements FriendInterface
+class FriendService extends Singleton implements FriendServiceInterface
 {
 
     const FRIEND_TITLE_TYPE = 3;

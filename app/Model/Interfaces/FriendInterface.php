@@ -6,5 +6,5 @@ interface FriendInterface
 {
 //    public function getIdListByUserId(int $userId);
 
-    public function getInfoByUserId(int $userId): array;
+    public function getIdListByUserId(int $userId): array;
 }

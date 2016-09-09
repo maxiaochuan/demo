@@ -19,7 +19,7 @@ class Friend extends Model implements FriendInterface
         return parent::getInstance();
     }
 
-    public function getIdListByUserId(int $userId)
+    public function getIdListByUserId(int $userId): array
     {
         $result = $this->getMasterDB()->get(self::getTableName(), self::FRIEND_ID_LIST, [
             self::FRIEND_ID => $userId
