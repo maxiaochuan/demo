@@ -63,9 +63,7 @@ class AuthController extends BaseController
 
     public function register(Request $request, Response $response)
     {
-        $data = $request->getBody();
-
-        $data = json_decode($data, true);
+        $data = $request->getParsedBody();
 
         $result = Validator::validate($data, 'register');
 
